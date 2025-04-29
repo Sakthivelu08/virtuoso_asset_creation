@@ -1,12 +1,47 @@
 # Virtuoso Package Implementation
-  In this repository, we have implemented the base structure of virtuoso grid and table using `react-virtuoso` package.
+This repository contains a basic setup of a virtualized grid and table built using the `react-virtuoso` package in React.
 
 ## Description
-  `react-virtuoso` is a family of React components that display large data sets using virtualized rendering, automatically handling variable item sizes and changes in items' sizes. 
-  This package offers a lot of functionalities like
-  - startreached, endreached callbacks
-  - fixed header content
-  for both tables and grids which makes our life easier when we are handling with rendering large datasets.
+This project shows how to use the `react-virtuoso` package to build virtualized tables and grids in a React app.
+
+`react-virtuoso` helps display large amounts of data by only rendering the items that are visible on the screen. It also updates item sizes automatically if they change. This makes the app faster and smoother when working with a lot of data.
+
+Some useful features of this package:
+- startReached and endReached events to load more data when scrolling
+- Fixed headers for both tables and grids
+- Fast performance even with thousands of items
+- Easy to customize the layout and design
+
+This setup is helpful when you need to show big datasets without slowing down the page.
 
 ## Getting Started
+  To get started with this project locally, follow these steps:
   
+  ### Prerequisites
+  Make sure you have the following installed:
+  - Node.js (>=14.x)
+  - npm or yarn
+
+  ### Installation
+  1. Clone the repo
+     
+     ```
+     https://github.com/Sakthivelu08/virtuoso_asset_creation.git
+     ```
+  2. Install npm packages
+      
+     ```
+     npm install
+     ```
+     
+  3. Run the project
+      
+     ```
+     npm start
+     ```
+     or
+     
+     ```
+     npm run start
+     ```
+  The app will be available at `http://localhost:8080`.
