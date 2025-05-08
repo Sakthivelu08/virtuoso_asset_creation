@@ -1,0 +1,1 @@
+export const tableHeadings = ['Name', 'Description 1', 'Description 2', 'Description 3', 'Description 4', 'Address 1', 'Address 2', 'Address 3', 'Address 4'];

@@ -1,9 +1,15 @@
-import { Box, FormControlLabel, Grid, MenuItem, Select, Switch, Typography } from "@mui/material";
+import { Box, FormControlLabel, Grid, MenuItem, Select, Switch, TableCell, TableRow, Typography } from "@mui/material";
 import React, { useState } from "react";
 import VirtuosoTable from "../../components/virtuosoTable";
 import CustomVirtuosoGrid from "../../components/virtuosoGrid";
+import { fixedHeaderContent, TableFooterComponent, generateData, separateCamelCase } from "../../utils/tableUtils";
+import { tableHeadings } from "../../constants/tableHeader";
+import { GridFooterComponent, RenderGridItem } from "../../utils/gridUtils";
 
 function MainContainer() {
+    const [personData, setPersonData] = useState(() => generateData(15, 0));
+    const [openTableLoader, setOpenTableLoader] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
     const [tableModifiers, setTableModifiers] = useState({
         FooterLoader: {
             value: true,
@@ -14,7 +20,10 @@ function MainContainer() {
             type: 'bool'
         }
     });
+
     const [gridFooterLoader, setGridFooterLoader] = useState(true);
+    const [dataLength, setDataLength] = useState(12);
+    const [openGridLoader, setOpenGridLoader] = useState(false);
 
     const updateTableModifiers = (modifierName, modifierValue) => {
         setTableModifiers(prev => ({
@@ -24,10 +33,55 @@ function MainContainer() {
                 value: !modifierValue?.value
             }
         }))
-    }
+    };
 
-    const separateCamelCase = (text) => {
-        return text.replace(/([a-z])([A-Z])/g, '$1 $2');
+    const endReachedTable = () => {
+        setOpenTableLoader(true);
+        setTimeout(() => {
+            setPersonData(prev => [
+                ...prev,
+                ...generateData(15, prev.length)
+            ]);
+            setOpenTableLoader(false);
+        }, 1500);
+    };
+
+    const handleRowClick = (props) => {
+        console.log('handlerowclick', props);
+    };
+
+    const RenderRows = ({
+        index,
+        person
+    }) => (
+        <>
+            {tableHeadings.map((tableHeading, index) => (
+                <TableCell
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    key={index}
+                    sx={{
+                        minWidth: tableHeading === 'Name' ? 150 : 200,
+                        position: tableHeading === 'Name' ? 'sticky' : 'initial',
+                        left: tableHeading === 'Name' && 0,
+                        zIndex: tableHeading === 'Name' && 1,
+                        backgroundColor: tableHeading === 'Name' && '#afdceb',
+                    }}
+                >
+                    {tableHeading.includes('Name') && person.name}
+                    {tableHeading.includes('Description') && person.description}
+                    {tableHeading.includes('Address') && person.address}
+                </TableCell>
+            ))}
+        </>
+    );
+
+    const endReachedGrid = () => {
+        setOpenGridLoader(true);
+        setTimeout(() => {
+            setDataLength(prev => prev + 12);
+            setOpenGridLoader(false);
+        }, 1000);
     };
 
     return (
@@ -78,7 +132,19 @@ function MainContainer() {
                     }}
                 >
                     <VirtuosoTable
+                        tableWidth={'100%'}
+                        tableHeight={'100%'}
                         tableModifiers={tableModifiers}
+                        FooterComponent={() => TableFooterComponent(tableHeadings)}
+                        fixedHeaderContent={() => fixedHeaderContent(tableHeadings)}
+                        overscan={100}
+                        data={personData}
+                        setData={setPersonData}
+                        openLoader={openTableLoader}
+                        setOpenLoader={setOpenTableLoader}
+                        endReached={endReachedTable}
+                        handleRowClick={handleRowClick}
+                        RenderRows={RenderRows}
                     />
                 </Box>
             </Grid>
@@ -121,6 +187,12 @@ function MainContainer() {
                 >
                     <CustomVirtuosoGrid
                         gridFooterLoader={gridFooterLoader}
+                        totalCount={dataLength}
+                        endReached={endReachedGrid}
+                        overscan={50}
+                        openLoader={openGridLoader}
+                        FooterComponent={GridFooterComponent}
+                        RenderGridItem={RenderGridItem}
                     />
                 </Box>
             </Grid>
