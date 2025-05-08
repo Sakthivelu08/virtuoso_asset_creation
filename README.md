@@ -45,3 +45,9 @@ This setup is helpful when you need to show big datasets without slowing down th
      npm run start
      ```
   The app will be available at `http://localhost:8080`.
+
+## What is Implemented
+
+In this project, VirtuosoTable and VirtuosoGrid are implemented as reusable components. You can import these components into your project and use them by passing the required prop values.
+
+You can find both components in the `src/components` directory.
