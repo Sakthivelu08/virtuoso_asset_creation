@@ -35,13 +35,13 @@ const gridComponents = {
 };
 
 const CustomVirtuosoGrid = ({
-	gridFooterLoader,
-	totalCount,
-	endReached,
-	overscan,
-	openLoader,
-	FooterComponent,
-	RenderGridItem
+	gridFooterLoader,   // Boolean or state to control the visibility of the footer loader (ex: while fetching more items)
+	totalCount,         // Total number of items available (used to manage rendering or pagination logic)
+	endReached,         // Callback triggered when the last visible item is rendered; used to fetch additional items
+	overscan,           // Number of extra items to render outside the viewport for smoother scrolling experience
+	openLoader,         // State to show/hide the loader in the footer area
+	FooterComponent,    // Component to be shown as the footer (typically used for loaders or messages)
+	RenderGridItem      // Component to render each grid item in a reusable and customizable way
 }) => {
 
 	return (
