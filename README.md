@@ -6,6 +6,11 @@ This project shows how to use the `react-virtuoso` package to build virtualized 
 
 `react-virtuoso` helps display large amounts of data by only rendering the items that are visible on the screen. It also updates item sizes automatically if they change. This makes the app faster and smoother when working with a lot of data.
 
+To use this package in your own project, install it using the following command:
+```
+npm install react-virtuoso
+```
+
 Some useful features of this package:
 - startReached and endReached events to load more data when scrolling
 - Fixed headers for both tables and grids
@@ -33,6 +38,7 @@ This setup is helpful when you need to show big datasets without slowing down th
      ```
      npm install
      ```
+     This will also install all required dependencies, including `react-virtuoso`, which is used to render virtualized grids and tables.
      
   3. Run the project
       
